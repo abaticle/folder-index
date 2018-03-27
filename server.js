@@ -5,7 +5,12 @@ const app = express();
 const PORT = 8080;
 const HOST = '0.0.0.0';
 
-fileIndex.init(["E:\\Musique", "D:\\Media"]);
+fileIndex.init([
+    "/volume1",
+    "/volume2",
+    "/volume3",
+    "/volume4"
+]);
 
 app.get("/search", (req, res) => {
 

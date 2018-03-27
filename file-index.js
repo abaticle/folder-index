@@ -80,12 +80,17 @@ Index.prototype.last = function(limit) {
 Index.prototype._watch = function() {
 
     //And watch for changes
-    let watcher = chokidar.watch(this.folders);
+    let watcher = chokidar.watch(this._folders);
+
+    console.log("Initialize watch")
 
     watcher.on("ready", () => {
-        console.log("Watching");
+        console.log("Watching ready");
 
         watcher
+            .on("error", (error) => {
+                console.log(error);
+            })  
             .on("add", (path, stats) => {   
                 console.log("add: ", path);
                 //return;
@@ -199,7 +204,7 @@ Index.prototype._databaseInitialize = function(callback) {
 Index.prototype._mapFileToCollection = function(fullPath, stats) {
 
     let extension = _.last(fullPath.split("."));
-    let fileType = _.first(fileExtension.ext.getContentType(extension));
+    let fileType = fileExtension.ext.getContentType(extension);
     
     return {
         name: _.last(fullPath.split(path.sep)),

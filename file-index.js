@@ -79,23 +79,8 @@ Index.prototype.last = function(limit) {
  */
 Index.prototype._watch = function() {
 
-    //Create array of folders to watch
-    let folders = [];
-
-    _.each(this._folders, folder => {
-
-        if (folder.watch) {
-            folders.push(folder.path);
-        
-            console.log("Watch directory: ", folder.path);
-        }
-    });
-
-    if (folders.length === 0) return;
-
-
     //And watch for changes
-    let watcher = chokidar.watch(folders);
+    let watcher = chokidar.watch(this.folders);
 
     watcher.on("ready", () => {
         console.log("Watching");
@@ -211,32 +196,6 @@ Index.prototype._databaseInitialize = function(callback) {
  * Convert a file to put it in collection
  * @param {*} file 
  */
-Index.prototype._mapFileToCollectionOld = function(file) {
-
-    let converted = {};
-    let extension = _.last(file.name.split("."));
-    let fileType = _.first(fileExtension.ext.getContentType(extension).split("/"));
-        
-    converted = {
-        name: file.name,
-        nameLowerCase: file.name.toLowerCase(),
-        fullPath: file.fullPath,
-        fullPathLowerCase: file.fullPath.toLowerCase(),
-        modificationTime: file.stat.mtime.getTime(),
-        size:  file.stat.size,
-        folderName: file.folderName,
-        extension: extension,
-        fileType: fileType
-    };
-
-    return converted;
-
-};
-
-/**
- * Convert a file to put it in collection
- * @param {*} file 
- */
 Index.prototype._mapFileToCollection = function(fullPath, stats) {
 
     let extension = _.last(fullPath.split("."));
@@ -265,9 +224,9 @@ Index.prototype._fillFilesCollection = function(callback) {
      * Get files from a folder
      */
     getFilesFromFolder = function(folder, callback){    
-        console.log("Get files from ", folder.path);
+        console.log("Get files from ", folder);
 
-        readdirp({ root: folder.path }, (err,result) => {
+        readdirp({ root: folder }, (err,result) => {
             callback(err, result.files);
         });
     };

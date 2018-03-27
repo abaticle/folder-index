@@ -13,18 +13,12 @@ fileIndex.init([
 ]);
 
 app.get("/search", (req, res) => {
-
     res.send(JSON.stringify(fileIndex.search(req.query.s, 200)));
-
 });
-
 
 app.get("/last", (req, res) => {
-
     res.send(JSON.stringify(fileIndex.last(10)));
-
 });
-
 
 app.listen(PORT, HOST);
 

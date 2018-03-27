@@ -1,13 +1,14 @@
 # folder-index
 Index files using Lokijs
 
-## Getting Started
+## Installing
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Using npm :
+```
+npm install
+npm start
+```
 
-### Installing
-
-Just copy the content of the repository and launch server.js 
 
 To initialize a database :
 ```
